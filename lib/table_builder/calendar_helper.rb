@@ -8,7 +8,7 @@ module CalendarHelper
     calendar = options[:calendar] || Calendar
     concat(tag(:table, html_options, true))
     yield builder.new(objects || [], self, calendar, options)
-    concat('</table>')
+    concat('</table>'.html_safe!)
   end
 
   class CalendarBuilder < TableHelper::TableBuilder
@@ -30,8 +30,8 @@ module CalendarHelper
           concat(tag(:tr, options, true)) if(day.wday ==  @calendar.first_weekday)
           concat(tag(:td, td_options(day, id_pattern), true))
           yield(day, objects)
-          concat('</td>')
-          concat('</tr>') if(day.wday ==  @calendar.last_weekday)
+          concat('</td>'.html_safe!)
+          concat('</tr>'.html_safe!) if(day.wday ==  @calendar.last_weekday)
         end
       end
     end

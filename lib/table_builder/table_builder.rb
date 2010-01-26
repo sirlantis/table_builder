@@ -8,7 +8,7 @@ module TableHelper
     
     concat(tag(:table, html_options, true))
     yield builder.new(objects || [], self, options)
-    concat('</table>')
+    concat('</table>'.html_safe!)
   end
 
   class TableBuilder
@@ -23,7 +23,7 @@ module TableHelper
       if block_given?
         concat(tag(:thead, options_from_hash(args), true))
         yield
-        concat('</thead>')
+        concat('</thead>'.html_safe!)
       else        
         @num_of_columns = args.size
         content_tag(:thead,
@@ -40,7 +40,7 @@ module TableHelper
       head do
         concat(tag(:tr, options, true))
         yield
-        concat('</tr>')
+        concat('</tr>'.html_safe!)
       end
     end
 
@@ -59,7 +59,7 @@ module TableHelper
         @objects.each { |c|
           concat(tag(:tr, options, true))
           yield(c)
-          concat('</tr>')
+          concat('</tr>'.html_safe!)
         }
       end
     end    
@@ -76,7 +76,7 @@ module TableHelper
       if block_given?
         concat(tag(:th, options_from_hash(args), true))
         yield
-        concat('</th>')
+        concat('</th>'.html_safe!)
       else
         content = args.shift
         content_tag(:th, content, options_from_hash(args))
@@ -87,7 +87,7 @@ module TableHelper
       if block_given?
         concat(tag(:td, options_from_hash(args), true))
         yield
-        concat('</td>')
+        concat('</td>'.html_safe!)
       else
         content = args.shift
         content_tag(:td, content, options_from_hash(args))
@@ -111,15 +111,15 @@ module TableHelper
     end
     
     def tbody
-      concat('<tbody>')
+      concat('<tbody>'.html_safe!)
       yield
-      concat('</tbody>')
+      concat('</tbody>'.html_safe!)
     end
     
     def tr options
       concat(tag(:tr, options, true))
       yield
-      concat('</tr>')      
+      concat('</tr>'.html_safe!)      
     end
   end
 end
